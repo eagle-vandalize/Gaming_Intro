@@ -148,7 +148,7 @@ html,body{
     border-radius: 50%;
     filter: blur(25px);
     animation-name: anime1;
-    animation-duration: 10s;
+    animation-duration: 5s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -192,7 +192,7 @@ html,body{
     display :inline-block ;
     white-space: nowrap;
     animation-name: move;
-    animation-duration: 5s;
+    animation-duration: 10s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 
