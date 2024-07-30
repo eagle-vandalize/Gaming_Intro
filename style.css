@@ -6,8 +6,8 @@
     
 }
 html,body{
-    height: 100%;
-    width: 100%;
+    /* height: 100%; */
+    /* width: 100%; */
 }
 a {
     text-decoration: none;
@@ -310,15 +310,14 @@ font-size: 1.3vw;
 /* -------footer-start----- */
 .footer {
     width: 100%;
-    padding-top: 10px;
-    padding-bottom: 20px;
+    /* padding-top: 10px;
+    padding-bottom: 20px; */
     background-color: #eab872;
     color: #fff;
     text-align: center;
   }
   .footer a {
     font-size: 30px;
-    color: #fff;
     padding: 5px;
   }
   .foot-nav-frst  {

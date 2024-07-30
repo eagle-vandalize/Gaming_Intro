@@ -24,17 +24,13 @@
     letter-spacing: 4px;
   }
   .j-logo {
-    width: 50px;
     float: left;
     height: 50px;
     margin: 6px 0px;
-    background-color: #fff;
-    border-radius: 50%;
     left: 0px;
     cursor: pointer; 
   }
   .j-logo img {
-    width: 24px;
     height: 48px;
     margin-right: 1px;
   }
