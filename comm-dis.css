@@ -4,6 +4,44 @@
     height: 100%;
     background-color: #ddc5a2;
   }
+  .j-hdr-container{
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    z-index:10;
+    background-color: #eab872;
+    top: 0%;
+  }
+  .j-name {
+    display: block; 
+    float: left;
+    color: #fff;
+    font-size: 45px;
+    font-family: rubik;
+    font-weight: 400;
+    padding-left: 20px;
+    margin-top: 2px;
+    letter-spacing: 4px;
+  }
+  .j-logo {
+    width: 50px;
+    float: left;
+    height: 50px;
+    margin: 6px 0px;
+    background-color: #fff;
+    border-radius: 50%;
+    left: 0px;
+    cursor: pointer; 
+  }
+  .j-logo img {
+    width: 24px;
+    height: 48px;
+    margin-right: 1px;
+  }
+  .j-header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
   #write-cmnt {
     position: fixed;
    width: 100%; 
