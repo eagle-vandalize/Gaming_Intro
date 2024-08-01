@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="profile.css">
+    <title>Player Profile</title>
+</head>
+<body>
+    <div id="main">
+        <div id="nav">
+            <img src="rebellion-squad.png" alt="">
+            <div id="nav-part2">
+                <h4><a href="#">Games</a></h4>
+                <h4><a href="#">Home</a></h4>
+                <h4><a href="#">Contact</a></h4>
+                <h4 id="loginOrProfile"><a href="login.html">Login</a></h4>
+            </div>
+        </div>
+        <div class="container">
+            <div class="profile-info">
+                <h1 id="nickname">Player Profile</h1>
+                <div id="userInfo"></div>
+                <div id="userDetails">
+                    <p><strong>Gaming Name:</strong> <span id="username">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="email">Loading...</span></p>
+                    <p><strong>Favorite Game:</strong> <span id="favoriteGame">Loading...</span></p>
+                    <p><strong>Rank:</strong> <span id="rank">Loading...</span></p>
+                </div>
+                <div id="btns">
+                    <button id="logoutBtn">Logout</button>
+                    <a href="index.html">Back to Home</a>
+                </div>
+            </div>
+            <div class="profile-pic">
+                <img id="profileImage" src="default-profile.png" alt="Profile Picture">
+                <div id="picControls">
+                    <div class="file-upload">
+                        <input type="file" id="uploadPic" accept="image/*">
+                        <button class="upload-btn">Upload Pic</button>
+                    </div>
+                    <button id="updatePic" style="display: none;">Update Pic</button>
+                    <button id="deletePic" style="display: none;">Delete Pic</button>
+                </div>
+            </div>
+        </div>
+        <div class="friend-list">
+            <h2>Friends</h2>
+            <ul id="friends">
+                <!-- Friends will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBQYcYN9WsZ3yVwpHxY6d5BgMtnhvU1Spw",
+            authDomain: "gaminghelp-dbf7c.firebaseapp.com",
+            databaseURL: "https://gaminghelp-dbf7c-default-rtdb.firebaseio.com",
+            projectId: "gaminghelp-dbf7c",
+            storageBucket: "gaminghelp-dbf7c.appspot.com",
+            messagingSenderId: "63667172716",
+            appId: "1:63667172716:web:9da9fdd80720775c3faf49",
+            measurementId: "G-VTJXPF2TSS"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const storage = getStorage(app);
+
+        const loginOrProfile = document.getElementById('loginOrProfile');
+        const profileImage = document.getElementById('profileImage');
+        const uploadPic = document.getElementById('uploadPic');
+        const nickname = document.getElementById('nickname');
+        const username = document.getElementById('username');
+        const email = document.getElementById('email');
+        const favoriteGame = document.getElementById('favoriteGame');
+        const rank = document.getElementById('rank');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const picControls = document.getElementById('picControls');
+        const updatePicBtn = document.getElementById('updatePic');
+        const deletePicBtn = document.getElementById('deletePic');
+        const friendsList = document.getElementById('friends');
+
+        function showUpdateDeleteButtons() {
+            document.querySelector('.file-upload').style.display = 'none';
+            updatePicBtn.style.display = 'inline-block';
+            deletePicBtn.style.display = 'inline-block';
+        }
+
+        function showUploadInput() {
+            document.querySelector('.file-upload').style.display = 'inline-block';
+            updatePicBtn.style.display = 'none';
+            deletePicBtn.style.display = 'none';
+        }
+
+        function uploadProfilePicture(file) {
+            const user = auth.currentUser;
+            const storageReference = storageRef(storage, 'profile_pictures/' + user.uid + '/' + file.name);
+            uploadBytes(storageReference, file).then(() => {
+                getDownloadURL(storageReference).then((url) => {
+                    set(ref(database, 'users/' + user.uid + '/profileImageURL'), url);
+                    profileImage.src = url;
+                    showUpdateDeleteButtons();
+                }).catch((error) => {
+                    console.error('Error getting download URL:', error);
+                });
+            }).catch((error) => {
+                console.error('Error uploading file:', error);
+            });
+        }
+
+        function deleteProfilePicture() {
+            const user = auth.currentUser;
+            set(ref(database, 'users/' + user.uid + '/profileImageURL'), null).then(() => {
+                profileImage.src = 'default-profile.png';
+                showUploadInput();
+            }).catch((error) => {
+                console.error('Error deleting profile picture:', error);
+            });
+        }
+
+        function loadFriends(friends) {
+            friendsList.innerHTML = '';
+
+            if (!friends || Object.keys(friends).length === 0) {
+                const noFriendsItem = document.createElement('li');
+                noFriendsItem.textContent = 'No friends added yet.';
+                friendsList.appendChild(noFriendsItem);
+                return;
+            }
+
+            const friendPromises = Object.keys(friends).map(friendId => {
+                const friendRef = ref(database, 'users/' + friendId);
+                return get(friendRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const friendData = snapshot.val();
+                        const friendItem = document.createElement('li');
+                        const friendLink = document.createElement('a');
+                        friendLink.href = `friend.html?id=${friendId}`;
+                        friendLink.textContent = friendData.nickname || 'Friend';
+                        friendItem.appendChild(friendLink);
+                        friendsList.appendChild(friendItem);
+                    }
+                }).catch((error) => {
+                    console.error('Error fetching friend data:', error);
+                });
+            });
+
+            Promise.all(friendPromises);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const userRef = ref(database, 'users/' + user.uid);
+                get(userRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        let data = snapshot.val();
+                        if (!data.friends) {
+                            data.friends = {
+                                "friendId1": true,
+                                "friendId2": true
+                            };
+                            set(ref(database, 'users/' + user.uid + '/friends'), data.friends)
+                                .then(() => console.log("Friends added successfully"))
+                                .catch((error) => console.error("Error adding friends:", error));
+                        }
+                        if (data.profileImageURL) {
+                            loginOrProfile.innerHTML = `<a href="profile.html"><img id="profilePic" src="${data.profileImageURL}" alt="User Icon"></a>`;
+                            profileImage.src = data.profileImageURL;
+                            showUpdateDeleteButtons();
+                            loadFriends(data.friends);
+                        } else {
+                            loginOrProfile.innerHTML = '<a href="profile.html">Profile</a>';
+                            showUploadInput();
+                        }
+                        nickname.textContent = data.nickname || 'Player Profile';
+                        username.textContent = data.username || 'N/A';
+                        email.textContent = user.email;
+                        favoriteGame.textContent = data.favoriteGame || 'N/A';
+                        rank.textContent = data.rank || 'N/A';
+                    } else {
+                        console.log('No data available');
+                        showUploadInput();
+                    }
+                }).catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
+
+                uploadPic.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        uploadProfilePicture(file);
+                    }
+                });
+
+                updatePicBtn.addEventListener('click', () => {
+                    uploadPic.click();
+                });
+
+                deletePicBtn.addEventListener('click', deleteProfilePicture);
+
+                logoutBtn.addEventListener('click', () => {
+                    signOut(auth).then(() => {
+                        window.location.href = 'login.html';
+                    }).catch((error) => {
+                        console.error('Sign out error:', error);
+                    });
+                });
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

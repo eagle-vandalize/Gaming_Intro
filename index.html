@@ -8,33 +8,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <title>Gaming World</title>
     <link rel="shortcut icon" href="apple-touch-icon.png" type="image/x-icon">
-    
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js"></script>
 </head>
 <body>
-    <div id="fixed-image">
-        
-    </div>
-    <div id ="main">
+    <div id="fixed-image"></div>
+    <div id="main">
         <div id="page1">
             <div id="nav">
-                <img src="rebellion-squad.png"alt="">
+                <img src="rebellion-squad.png" alt="">
                 <div id="nav-part2">
                     <h4><a href="#">Games</a></h4>
                     <h4><a href="#">Home</a></h4>
-                    <h4><a href="#">contact</a></h4>
-                    
-                    
+                    <h4><a href="#">Contact</a></h4>
+                    <h4 id="loginOrProfile"><a href="login.html">Login</a></h4>
                 </div>
             </div>
             <div id="centre">
                 <div id="left">
-                    <h3>Start Before You Think You Are REady.</h3>
+                    <h3>Start Before You Think You Are Ready.</h3>
                 </div>
                 <div id="right">
-                    <h1>SPACE <br>
-                        THAT <br>
-                        INSPIRED 
-                    </h1>
+                    <h1>SPACE <br> THAT <br> INSPIRED</h1>
                 </div>
             </div>
             <div id="hero-shape">
@@ -43,18 +39,9 @@
                 <div id="hero-3"></div>
             </div>
             <video autoplay loop muted src="gaming.mp4"></video>
-
         </div>
         <div id="page2">
             <div id="moving_text">
-                <div  class="con">
-                    <h1>EXPERIENCES</h1>
-                    <div id="gola"></div>
-                    <h1>EFFORTS</h1>
-                    <div id="gola"></div>
-                    <h1>POSSESION</h1>
-                    <div id="gola"></div>
-                </div>
                 <div class="con">
                     <h1>EXPERIENCES</h1>
                     <div id="gola"></div>
@@ -71,69 +58,115 @@
                     <h1>POSSESION</h1>
                     <div id="gola"></div>
                 </div>
-                
-                
+                <div class="con">
+                    <h1>EXPERIENCES</h1>
+                    <div id="gola"></div>
+                    <h1>EFFORTS</h1>
+                    <div id="gola"></div>
+                    <h1>POSSESION</h1>
+                    <div id="gola"></div>
+                </div>
             </div>
             <div id="page2-bottom">
                 <h1>
                     Immerse yourself in epic adventures <br> our expert tips
-                     and player reviews.<br> Connect with fellow gamers and <br>
-                     level up your play at our thriving community hub!</h1>
-                     <div id="bottom-part2">
-                        <img src="th.jpeg" alt="">
-                        <p>
-                            Discover the ultimate gaming experience
-                             with our in-depth reviews, news, and guides
-                              for every platform. Join
-                             our community and stay ahead in the world of gaming!</p>
-                     </div>
+                    and player reviews.<br> Connect with fellow gamers and <br>
+                    level up your play at our thriving community hub!
+                </h1>
+                <div id="bottom-part2">
+                    <img src="th.jpeg" alt="">
+                    <p>
+                        Discover the ultimate gaming experience
+                        with our in-depth reviews, news, and guides
+                        for every platform. Join
+                        our community and stay ahead in the world of gaming!
+                    </p>
+                </div>
             </div>
-
-
         </div>
         <div id="page3">
-           <div id="elem-container">
-
-            <div class="elem" data-image="game-Intro.webp">
-                
-                <div class="overlay"></div>
-                <h2>Introduction</h2>
-
+            <div id="elem-container">
+                <div class="elem" data-image="game-Intro.webp">
+                    <div class="overlay"></div>
+                    <h2>Introduction</h2>
+                </div>
+                <div class="elem" data-image="games-developer.webp">
+                    <div class="overlay"></div>
+                    <h2>Games developer</h2>
+                </div>
+                <div class="elem" data-image="1love.webp">
+                    <div class="overlay"></div>
+                    <h2>Games Mechanics</h2>
+                </div>
+                <div class="elem" data-image="design.jpg">
+                    <div class="overlay"></div>
+                    <h2>Design innovation</h2>
+                </div>
+                <div class="elem" data-image="players.webp">
+                    <div class="overlay"></div>
+                    <h2>Players overview</h2>
+                </div>
+                <div class="elem" data-image="games-mecha.webp">
+                    <div class="overlay"></div>
+                    <h2>community Discussion</h2>
+                </div>
             </div>
-            <div class="elem" data-image="games-developer.webp">
-                
-                <div class="overlay"></div>
-                <h2>Games developer</h2>
-
-            </div>
-            <div class="elem" data-image="1love.webp">
-                
-                <div class="overlay"></div>
-                <h2>Games Mechanics</h2>
-
-            </div>
-            
-            <div class="elem" data-image="design.jpg">
-                
-                <div class="overlay"></div>
-                <h2>Design innovation</h2>
-
-            </div>
-            <div class="elem" data-image="players.webp">
-               
-                <div class="overlay"></div>
-                <h2>Players overview</h2>
-
-            </div>
-            <div class="elem" data-image="games-mecha.webp">
-                
-                <div class="overlay"></div>
-                <h2>community Discussion</h2>
-
-            </div>
-           </div>
         </div>
     </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBQYcYN9WsZ3yVwpHxY6d5BgMtnhvU1Spw",
+            authDomain: "gaminghelp-dbf7c.firebaseapp.com",
+            databaseURL: "https://gaminghelp-dbf7c-default-rtdb.firebaseio.com",
+            projectId: "gaminghelp-dbf7c",
+            storageBucket: "gaminghelp-dbf7c.appspot.com",
+            messagingSenderId: "63667172716",
+            appId: "1:63667172716:web:9da9fdd80720775c3faf49",
+            measurementId: "G-VTJXPF2TSS"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        const loginOrProfile = document.getElementById('loginOrProfile');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const userRef = ref(database, 'users/' + user.uid);
+                get(userRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        if (data.profileImageURL) {
+                            loginOrProfile.innerHTML = `<a href="profile.html"><img id="profilePic" src="${data.profileImageURL}" alt="User Icon"></a>`;
+                        } else {
+                            loginOrProfile.innerHTML = '<a href="profile.html">Profile</a>';
+                        }
+                    }
+                }).catch((error) => {
+                    console.error('Error fetching user data:', error);
+                });
+            } else {
+                loginOrProfile.innerHTML = '<a href="login.html">Login</a>';
+            }
+        });
+
+        if (document.getElementById('logoutButton')) {
+            document.getElementById('logoutButton').addEventListener('click', () => {
+                signOut(auth).then(() => {
+                    loginOrProfile.innerHTML = '<a href="login.html">Login</a>';
+                }).catch((error) => {
+                    console.error('Error signing out:', error);
+                });
+            });
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
