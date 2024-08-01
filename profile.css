@@ -44,8 +44,8 @@ body {
 }
 
 #nav img {
-    width: 30px;
-    height: 30px;
+    width: 130px;
+    height: 20px;
     margin-left: 5px;
 }
 
@@ -336,7 +336,7 @@ h1, p {
     }
 
     #nav img {
-        width: 20px;
+        width: 40px;
         height: 20px;
     }
 
@@ -510,7 +510,7 @@ h1, p {
     }
 
     #nav img {
-        width: 20px;
+        width: 40px;
         height: 20px;
     }
 

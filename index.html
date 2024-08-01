@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <title>Gaming World</title>
     <link rel="shortcut icon" href="apple-touch-icon.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/32287f1af7.js" crossorigin="anonymous"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+    </style>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js"></script>
@@ -85,33 +89,75 @@
             </div>
         </div>
         <div id="page3">
-            <div id="elem-container">
-                <div class="elem" data-image="game-Intro.webp">
-                    <div class="overlay"></div>
-                    <h2>Introduction</h2>
-                </div>
-                <div class="elem" data-image="games-developer.webp">
-                    <div class="overlay"></div>
-                    <h2>Games developer</h2>
-                </div>
-                <div class="elem" data-image="1love.webp">
-                    <div class="overlay"></div>
-                    <h2>Games Mechanics</h2>
-                </div>
-                <div class="elem" data-image="design.jpg">
-                    <div class="overlay"></div>
-                    <h2>Design innovation</h2>
-                </div>
-                <div class="elem" data-image="players.webp">
-                    <div class="overlay"></div>
-                    <h2>Players overview</h2>
-                </div>
-                <div class="elem" data-image="games-mecha.webp">
-                    <div class="overlay"></div>
-                    <h2>community Discussion</h2>
-                </div>
+           <div id="elem-container">
+
+            <div class="elem" data-image="game-Intro.webp">
+                
+                <div class="overlay" id="intro"></div>
+                <h2><a href="introd.html">Game Basics</a></h2>
+
             </div>
+
+            <div class="elem" data-image="games-developer.webp">
+                
+                <div class="overlay"></div>
+                <h2>Player Profile</h2>
+
+            </div>
+            <div class="elem" data-image="1love.webp">
+                
+                <div class="overlay"></div>
+                <h2><a href="https://poki.com/">
+                    Play Games</a></h2>
+
+            </div>
+                <div class="elem" data-image="games-mecha.webp">
+                
+                <div class="overlay"></div>
+                <h2><a href="comm-dis.html">community Discussion</a> </h2>
+
+                </div>
+            
+            <div class="elem" data-image="design.jpg">
+                
+                <div class="overlay"></div>
+                <h2>
+                    <a href="https://developer.crazygames.com/">Games Developer</a></h2>
+
+            </div>
+            <div class="elem" data-image="players.webp">
+               
+                <div class="overlay"></div>
+                <h2>Feedback</h2>
+
+            </div>
+           
+           </div>
         </div>
+        <footer class="footer j-padding-20">
+            <div style="width: 100%; padding-top:  10px; padding-bottom: 30px;">
+                <a href="#" class="foot-nav-frst" title="About">About</a>
+                <span class="foot-nav-frst">|</span>
+                <a class="foot-nav-frst" href="#" title="Contact">Contact</a>
+                <nav class="foot-nav-scnd">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram-square"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube-square"></i></a>
+                    <a href="#" title="facebook"><i class="fab fa-facebook-square"></i></a>
+                </nav>
+            </div>
+            <p style="padding: 2em 3em;">This is made only for fun purpose.
+                Read <a href="#" style="font-size: medium; text-decoration: underline;" title="privacy policy">privacy
+                    policy</a>& <a href="#" style="font-size: medium; text-decoration: underline;"
+                    title="terms and condition"> terms and condition.</a></br> Copyright&#169 2024. All Rights
+                Reserved.</p>
+
+        </footer>
+    </div>
+    <div>
+    <!-- <footer>
+        <p>@ Gaming World</p>
+    </footer> -->
+    
     </div>
 
     <script type="module">
