@@ -1,0 +1,33 @@
+{
+    "users": {
+      "userId1": {
+        "nickname": "Player1",
+        "username": "player1",
+        "email": "player1@example.com",
+        "favoriteGame": "Game1",
+        "rank": "Gold",
+        "profileImageURL": "url-to-profile1-image",
+        "friends": {
+          "friendId1": true,
+          "friendId2": true
+        }
+      },
+      "friendId1": {
+        "nickname": "Friend1",
+        "username": "friend1",
+        "email": "friend1@example.com",
+        "favoriteGame": "GameX",
+        "rank": "Silver",
+        "profileImageURL": "url-to-friend1-image"
+      },
+      "friendId2": {
+        "nickname": "Friend2",
+        "username": "friend2",
+        "email": "friend2@example.com",
+        "favoriteGame": "GameY",
+        "rank": "Bronze",
+        "profileImageURL": "url-to-friend2-image"
+      }
+    }
+  }
+  

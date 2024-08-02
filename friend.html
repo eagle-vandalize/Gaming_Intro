@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="profile.css">
+    <title>Friend Profile</title>
+</head>
+<body>
+    <div id="main">
+        <div id="nav">
+            <img src="rebellion-squad.png" alt="">
+            <div id="nav-part2">
+                <h4><a href="#">Games</a></h4>
+                <h4><a href="#">Home</a></h4>
+                <h4><a href="#">Contact</a></h4>
+                <h4 id="loginOrProfile"><a href="login.html">Login</a></h4>
+            </div>
+        </div>
+        <div class="container">
+            <div class="profile-info">
+                <h1 id="friendNickname">Friend's Profile</h1>
+                <div id="friendDetails">
+                    <p><strong>Gaming Name:</strong> <span id="friendUsername">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="friendEmail">Loading...</span></p>
+                    <p><strong>Favorite Game:</strong> <span id="friendFavoriteGame">Loading...</span></p>
+                    <p><strong>Rank:</strong> <span id="friendRank">Loading...</span></p>
+                </div>
+                <div id="friendBackToProfileBtn">
+                    <a href="profile.html">Back to Profile</a>
+                </div>
+            </div>
+            <div class="profile-pic">
+                <img id="friendProfileImage" src="default-profile.png" alt="Profile Picture">
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBQYcYN9WsZ3yVwpHxY6d5BgMtnhvU1Spw",
+            authDomain: "gaminghelp-dbf7c.firebaseapp.com",
+            databaseURL: "https://gaminghelp-dbf7c-default-rtdb.firebaseio.com",
+            projectId: "gaminghelp-dbf7c",
+            storageBucket: "gaminghelp-dbf7c.appspot.com",
+            messagingSenderId: "63667172716",
+            appId: "1:63667172716:web:9da9fdd80720775c3faf49",
+            measurementId: "G-VTJXPF2TSS"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const loginOrProfile = document.getElementById('loginOrProfile');
+
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        async function fetchData(reference) {
+            try {
+                const snapshot = await get(reference);
+                if (snapshot.exists()) {
+                    return snapshot.val();
+                } else {
+                    console.log('No data available');
+                    return null;
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return null;
+            }
+        }
+
+        async function displayFriendData() {
+            const friendId = getQueryParameter('id');
+            if (!friendId) {
+                console.log('No friend ID provided');
+                return;
+            }
+
+            const friendRef = ref(database, 'users/' + friendId);
+            const data = await fetchData(friendRef);
+
+            if (data) {
+                document.getElementById('friendNickname').textContent = data.nickname || 'Unknown';
+                document.getElementById('friendUsername').textContent = data.username || 'N/A';
+                document.getElementById('friendEmail').textContent = data.email || 'N/A';
+                document.getElementById('friendFavoriteGame').textContent = data.favoriteGame || 'N/A';
+                document.getElementById('friendRank').textContent = data.rank || 'N/A';
+                document.getElementById('friendProfileImage').src = data.profileImageURL || 'default-profile.png';
+            }
+        }
+
+        async function displayUserProfileImage(user) {
+            if (!user) {
+                loginOrProfile.innerHTML = '<a href="login.html">Login</a>';
+                return;
+            }
+
+            const userRef = ref(database, 'users/' + user.uid);
+            const data = await fetchData(userRef);
+
+            if (data && data.profileImageURL) {
+                loginOrProfile.innerHTML = `<a href="profile.html"><img id="profilePic" src="${data.profileImageURL}" alt="User Icon"></a>`;
+            } else {
+                loginOrProfile.innerHTML = '<a href="profile.html">Profile</a>';
+            }
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            displayUserProfileImage(user);
+            displayFriendData();
+        });
+    </script>
+</body>
+</html>
