@@ -1,19 +1,39 @@
   /* commentry */
+
+  ::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
   .j-container {
     position: relative;
     height: 100%;
     background-color: #ddc5a2;
   }
-  .j-hdr-container{
+
+  .j-hdr-container {
     position: sticky;
     display: flex;
     flex-direction: column;
-    z-index:10;
+    z-index: 10;
     background-color: #eab872;
     top: 0%;
   }
+
   .j-name {
-    display: block; 
+    display: block;
     float: left;
     color: #fff;
     font-size: 45px;
@@ -23,32 +43,37 @@
     margin-top: 2px;
     letter-spacing: 4px;
   }
+
   .j-logo {
     float: left;
     height: 50px;
     margin: 6px 0px;
     left: 0px;
-    cursor: pointer; 
+    cursor: pointer;
   }
+
   .j-logo img {
     height: 48px;
     margin-right: 1px;
   }
+
   .j-header {
     padding-left: 20px;
     padding-right: 20px;
   }
+
   #write-cmnt {
-    position: fixed;
-   width: 100%; 
-   left: 0px;
-   bottom: 20px;
-   display: flex;
-   justify-content: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 20px;
+    border-radius: 8px;
   }
+
   .j-comnt-form {
-    width: 65%; 
-    height: 120.4px;
+    width: 100%;
+    height: 120px;
     z-index: 1;
     padding-top: 15px;
     padding-bottom: 5px;
@@ -60,6 +85,7 @@
     background-color: #eab872;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
   }
+
   .j-comnt-form fieldset {
     position: relative;
     outline: none;
@@ -67,12 +93,14 @@
     border-radius: 8px;
     padding: 5px 10px;
   }
+
   .j-comnt-form fieldset legend {
     color: #571845;
     font-size: 20px;
     font-weight: 600;
     margin-left: 40px;
   }
+
   .j-comnt-form fieldset textarea {
     width: 100%;
     font-size: 16px;
@@ -81,16 +109,19 @@
     padding: 5px 10px;
     margin: auto;
   }
+
   .textarea {
     display: flex;
     margin: 10px;
   }
+
   .post-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .post-button input {
+
+  .post-button button {
     padding: 5px 10px;
     font-size: 25px;
     font-weight: 600;
@@ -101,6 +132,13 @@
     border: none;
     border-radius: 8px;
   }
+
+  .j-cmnt-box {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+  }
+
   .j-commentry-down {
     position: absolute;
     display: flex;
@@ -117,19 +155,21 @@
     font-size: 20px;
     transform: rotate(-90deg);
     border-radius: 50%;
-    box-shadow: -10px 0px 16px 0 rgba(0, 0, 0,0.3);
-  
+    box-shadow: -10px 0px 16px 0 rgba(0, 0, 0, 0.3);
+
   }
+
   .j-commentry-down span {
     display: block;
     width: 15px;
     height: 29px;
   }
-  
-  #write-cmnt .active span{ 
+
+  #write-cmnt .active span {
     transform: rotate(-180deg);
     transition: 0.7s;
   }
+
   #write-cmnt form.active {
     height: 0px;
     padding-top: 0px;
@@ -138,57 +178,64 @@
     overflow: hidden;
     transition: 0.7s;
   }
+
   .j-comnt-form fieldset.active {
     opacity: 0%;
     transition: 0.4s;
   }
-  .cmnt-poster {
-    width: 100%;
+
+  .cmnt-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .j-poster {
+    width: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border: 1px solid #571845;
+    border-radius: 4px;
+    height: calc(100vh - 103px);
   }
+
+  .cmnt-poster {
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+  }
+
   .cmnt-Post-box {
     display: flex;
     flex-direction: row;
-    width: 70%;
-    padding: 20px 10px;
-    margin: 5px 0px;
-    border-radius: 8px;
+    width: 100%;
+    margin: 8px 0px;
+
     /* box-shadow: -1px 1px 2px 1px rgba(0, 0, 0, 0.1), */
     /* -2px 2px 4px 1px rgba(255, 255, 255, 0.8), */
     /* -3px 3px 0px 1px rgba(0, 0, 0, 0.1); */
   }
-  .icon-container {
-    padding: 0px 10px;
-  }
-  .circle-nam-icon {
-    height: 50px;
-    width: 50px;
-    background-color: #571845;
-    color: #fff;
+
+  .icon-container img {
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
-    text-transform: capitalize;  
   }
+
   .post-container {
-    padding: 0 10px;
+    padding: 10px;
     margin-left: 14px;
     width: 100%;
+    justify-content: center;
   }
-  .write-cmnt {
-    position: relative;
-    width: 100%;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    padding-left: 10px;
-    padding-right: 0px;
-    font-size: 20px;
-    border-radius: 8px;
-    box-shadow: -1px 1px 4px 1px rgba(0, 0, 0, 0.1),
-    -2px 2px 4px 1px rgba(255, 255, 255, 0.8),
-    -3px 3px 0px 1px rgba(0, 0, 0, 0.1); 
+
+  .post-container span {
+    display: block;
   }
+
   .focusIcon {
     position: absolute;
     width: 17px;
@@ -199,8 +246,9 @@
     background-color: #fff;
     transform: rotate(45deg);
   }
+
   .cmnt-text {
-  width: 100%;
-  padding: 10px;
-  word-wrap: break-word;
+    width: 100%;
+    padding: 10px;
+    word-wrap: break-word;
   }
