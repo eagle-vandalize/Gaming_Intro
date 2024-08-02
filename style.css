@@ -5,10 +5,14 @@
     font-family: 'Gilroy';
     
 }
-html,body{
+/* html,body{
     height: 100%;
     width: 100%;
-}
+} */
+a {
+    text-decoration: none;
+    color: #000;
+  }
 #main {
     /* background-color: #000; */
     position: relative;
@@ -321,8 +325,6 @@ font-size: 1.3vw;
 
 }
 
-
-
 /* For login page */
 
 .container {
@@ -509,4 +511,31 @@ form p a:hover, form h5 a:hover {
     100% { border-color: #1aff1a; }
 }
 
+/* #elem-container{
+    background-color: #22b12e;
+} */
 
+/* -------footer-start----- */
+.footer {
+    width: 100%;
+    /* padding-top: 10px;
+    padding-bottom: 20px; */
+    background-color: #eab872;
+    color: #fff;
+    text-align: center;
+  }
+  .footer a {
+    font-size: 30px;
+    padding: 5px;
+  }
+  .foot-nav-frst  {
+    float: left;
+  }
+  .foot-nav-scnd {
+    padding: 2px;
+    float: right !important;
+  }
+  .foot-nav-frst {
+    font-size: 37px;
+  }
+  /* -----footer-end----- */
